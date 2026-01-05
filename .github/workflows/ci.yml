@@ -1,0 +1,23 @@
+name: C CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Install GCC
+      run: sudo apt-get install build-essential
+
+    - name: Compile
+      run: gcc -Iinclude src/max_profit.c tests/test_max_profit.c -o test_max_profit
+
+    - name: Run tests
+      run: ./test_max_profit
